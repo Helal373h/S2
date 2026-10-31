@@ -1,8 +1,11 @@
-import axios from "axios"; 
-const api = axios.create(
-{
-    baseURL : "https://white-seahorse-266682.hostingersite.com/api/v1"
-}
+import axios from 'axios';
 
-) 
-export default api
+const api = axios.create({
+  // استخدام بروكسي وسيط لتجاوز قيود CORS والوصول للسيرفر
+  baseURL: "https://corsproxy.io/?https://white-seahorse-266682.hostingsite.com/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default api;

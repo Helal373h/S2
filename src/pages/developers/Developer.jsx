@@ -46,14 +46,15 @@ export default function Developers() {
                 />
             </div> 
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 justify-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8 max-w-[1440px] mx-auto justify-items-center">
                 {developers && developers.length > 0 ? (
                     developers.map((dev, index) => (
                         <div 
                             key={`${dev.id || index}`} 
-                            className="w-full max-w-[442px] h-[529px] bg-white border border-gray-200 rounded-[16px] p-4 shadow-md hover:shadow-lg transition flex flex-col justify-between box-border"
+                            className="w-full max-w-[442px] bg-white border border-gray-200 rounded-[16px] p-5 shadow-md hover:shadow-lg transition flex flex-col justify-between box-border"
                         >
                             <div>
+                                {/* صورة الكارد والبادج */}
                                 <div className="relative h-[220px] rounded-xl overflow-hidden mb-4">
                                     <img 
                                         src={dev.images && dev.images.length > 0 ? dev.images[0] : ""} 
@@ -65,9 +66,10 @@ export default function Developers() {
                                     </span>
                                 </div>
                                 
-                                <div className="flex items-center gap-3 mb-4 px-1">
+                                {/* الشعار والاسم والـ Subtitle */}
+                                <div className="flex items-center gap-3 mb-3 px-1">
                                     {dev.logo ? (
-                                        <img src={dev.logo} alt={dev.name_en} className="h-10 object-contain" />
+                                        <img src={dev.logo} alt={dev.name_en} className="w-10 h-10 object-contain rounded-lg border border-gray-100" />
                                     ) : null}
                                     
                                     <div>
@@ -81,11 +83,26 @@ export default function Developers() {
                                         )}
                                     </div>
                                 </div>
+
+                                {/* 📌 التفاصيل الجديدة التي تأتي من الـ API (مثل الوصف أو المميزات) */}
+                                {dev.description && (
+                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 px-1">
+                                        {dev.description}
+                                    </p>
+                                )}
+
+                                {/* أمثلة إضافية لتفاصيل أخرى (لو موجودة في الـ API عندك مثل عدد المشاريع أو غيره) */}
+                                {dev.projects_count && (
+                                    <div className="text-xs text-gray-500 mb-4 px-1 font-medium">
+                                        Projects: <span className="text-gray-900 font-bold">{dev.projects_count}</span>
+                                    </div>
+                                )}
                             </div>
 
+                            {/* زر عرض المشاريع */}
                             <Link 
                                 to={`/developers/${dev.id}`} 
-                                className="w-full border border-[#800020] text-[#800020] py-2.5 rounded-xl hover:bg-[#800020] hover:text-white transition font-medium text-center block"
+                                className="w-full border border-[#800020] text-[#800020] py-2.5 rounded-xl hover:bg-[#800020] hover:text-white transition font-medium text-center block mt-4"
                             >
                                 View Projects
                             </Link>

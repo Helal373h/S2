@@ -19,7 +19,14 @@ export default function Zones() {
     async function getZones() {
       try {
         const response = await api.get("/zone");
-        setZones(response.data);
+        console.log("API Response:", response.data); // لفحص شكل البيانات في الـ Console
+
+        // التحقق مما إذا كانت البيانات مصفوفة مباشرة أو داخل مفتاح آخر
+        const zonesData = Array.isArray(response.data) 
+          ? response.data 
+          : response.data.data || [];
+
+        setZones(zonesData);
       } catch (error) {
         console.error("خطأ في جلب المناطق:", error);
       }
@@ -40,7 +47,8 @@ export default function Zones() {
       </div>
 
       <div className="flex flex-row flex-wrap gap-6 items-center justify-center mt-[87px]">
-        {zones.map((zone, index) => {
+        {/* حماية الـ map باستخدام Array.isArray لضمان عدم حدوث انهيار */}
+        {Array.isArray(zones) && zones.map((zone, index) => {
           return (
             <button 
               key={zone.id} 
